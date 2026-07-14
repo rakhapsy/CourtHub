@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { Search, Filter, X } from "lucide-react";
 
-export default function CariLapangan() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const [facilities, setFacilities] = useState([]);
   const [filteredFacilities, setFilteredFacilities] = useState([]);
@@ -320,5 +320,26 @@ export default function CariLapangan() {
         )}
       </section>
     </main>
+  );
+}
+
+// Loading fallback component
+function SearchLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#033671] mx-auto mb-4"></div>
+        <p className="text-gray-600">Memuat halaman pencarian...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main page component with Suspense wrapper
+export default function CariLapangan() {
+  return (
+    <Suspense fallback={<SearchLoading />}>
+      <SearchContent />
+    </Suspense>
   );
 }
