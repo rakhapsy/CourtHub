@@ -58,7 +58,7 @@ export default function SubscribePage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          booking_id: `SUB-${planName}-${user.id}`,
+          booking_id: `SUB-${user.id}`,
           gross_amount: totalPrice,
           customer_name: user.user_metadata?.full_name || 'Partner',
           customer_email: user.email
