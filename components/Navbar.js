@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from 'next/image';
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "../lib/supabase";
 import { User, LogOut, Calendar, LayoutDashboard } from "lucide-react";
 
@@ -13,6 +13,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const checkSession = async () => {
@@ -71,6 +72,39 @@ export default function Navbar() {
               className="h-8 sm:h-10 w-auto object-contain"
             />
           </Link>
+
+          <div className="hidden md:flex items-center gap-6">
+            <Link 
+              href="/cari-lapangan" 
+              className={`text-sm font-semibold transition-colors ${
+                pathname === '/cari-lapangan' 
+                  ? 'text-[#033671] border-b-2 border-[#87dd70]' 
+                  : 'text-slate-600 hover:text-[#033671]'
+              }`}
+            >
+              Cari Lapangan
+            </Link>
+            <Link 
+              href="/mabar" 
+              className={`text-sm font-semibold transition-colors ${
+                pathname === '/mabar' 
+                  ? 'text-[#033671] border-b-2 border-[#87dd70]' 
+                  : 'text-slate-600 hover:text-[#033671]'
+              }`}
+            >
+              Mabar
+            </Link>
+            <Link 
+              href="/tournament" 
+              className={`text-sm font-semibold transition-colors ${
+                pathname === '/tournament' 
+                  ? 'text-[#033671] border-b-2 border-[#87dd70]' 
+                  : 'text-slate-600 hover:text-[#033671]'
+              }`}
+            >
+              Turnamen
+            </Link>
+          </div>
 
           <div className="flex items-center gap-4">
             {user ? (

@@ -43,7 +43,9 @@ export default function MyBookings() {
   }
 
   const formatDateTime = (timestamp) => {
-    const date = new Date(timestamp);
+    // Remove timezone to prevent UTC conversion
+    const cleanTimestamp = timestamp.replace(/Z$/, '').replace(/\+\d{2}:\d{2}$/, '').replace(/\+\d{2}$/, '');
+    const date = new Date(cleanTimestamp);
     return {
       date: date.toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" }),
       time: date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
